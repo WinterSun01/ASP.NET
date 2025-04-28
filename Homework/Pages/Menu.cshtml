@@ -1,0 +1,31 @@
+﻿@page
+@model Homework.Pages.MenuModel
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Наше меню</h1>
+
+    @if (Model.MenuItems != null && Model.MenuItems.Count > 0)
+    {
+        <table class="table table-striped table-bordered w-50 mx-auto">
+            <thead class="table-light">
+                <tr>
+                    <th>Блюдо</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MenuItems)
+                {
+                    <tr>
+                        <td class="text-start">@item.Name</td>
+                        <td class="text-end">@item.Price ₽</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

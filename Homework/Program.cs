@@ -1,3 +1,5 @@
+using Homework.Services;
+
 namespace Homework
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Homework
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddSingleton<RestaurantMenuService>(); //регистрация сервиса
 
             var app = builder.Build();
 
