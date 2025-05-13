@@ -1,0 +1,19 @@
+﻿@page
+@model TaskManager.Pages.TasksModel
+@{
+    ViewData["Title"] = "Список задач";
+}
+
+<h2>Список задач</h2>
+
+<ul class="list-group">
+    @foreach (var task in Model.Tasks)
+    {
+        <li class="list-group-item">
+            <h5>@task.Title</h5>
+            <p>@task.Description</p>
+            <small class="text-muted">@task.CreatedAt.ToString("g")</small>
+        </li>
+    }
+</ul>
+
