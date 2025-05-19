@@ -1,0 +1,10 @@
+﻿@page "{id:int?}/{name?}"
+@model RazorPagesWithAdmin.Areas.Admin.Pages.UserModel
+@{
+    ViewData["Title"] = "User Page";
+}
+
+<h2>User Page</h2>
+
+<p>Id: @Model.Id</p>
+<p>Name: @Model.Name</p>
