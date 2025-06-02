@@ -1,0 +1,32 @@
+﻿@page
+@model Task_Planner.Pages.Tasks.ListModel
+@{
+    ViewData["Title"] = "Task List";
+}
+
+<h2>All Tasks</h2>
+
+@if (Model.Tasks.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model.Tasks)
+            {
+                <tr>
+                    <td>@task.Title</td>
+                    <td>@task.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No tasks found.</p>
+}
