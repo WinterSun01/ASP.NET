@@ -1,6 +1,4 @@
-using RazorPagesWithAdmin.Services;
-
-namespace RazorPagesWithAdmin
+namespace Task_Planner
 {
     public class Program
     {
@@ -9,7 +7,7 @@ namespace RazorPagesWithAdmin
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddSingleton<ITaskService, TaskService>();
+            builder.Services.AddRazorPages();
 
             var app = builder.Build();
 
@@ -20,12 +18,13 @@ namespace RazorPagesWithAdmin
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            //app.UseAuthorization();
+            app.UseAuthorization();
 
             app.MapRazorPages();
 

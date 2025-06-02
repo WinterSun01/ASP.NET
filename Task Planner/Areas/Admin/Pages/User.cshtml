@@ -1,0 +1,9 @@
+﻿@page "/Admin/User/{id:int}/{name?}"
+@model MyWebApp.Areas.Admin.Pages.UserModel
+@{
+    ViewData["Title"] = "User";
+}
+
+<h2>User Info</h2>
+<p>ID: @Model.Id</p>
+<p>Name: @Model.Name</p>

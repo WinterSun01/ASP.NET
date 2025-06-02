@@ -1,0 +1,19 @@
+﻿@page
+@model RazorPagesWithAdmin.Pages.Tasks.NewTaskModel
+@{
+    ViewData["Title"] = "Создать новую задачу";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div>
+        <label asp-for="Task.Title">Название:</label>
+        <input asp-for="Task.Title" />
+    </div>
+    <div>
+        <label asp-for="Task.Description">Описание:</label>
+        <textarea asp-for="Task.Description"></textarea>
+    </div>
+    <button type="submit">Создать</button>
+</form>
