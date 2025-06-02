@@ -27,7 +27,7 @@ namespace Task_Planner.Pages.Tasks
                 return Page();
 
             _taskService.CreateTask(Task);
-            return RedirectToPage("/Index"); // можно поменять на список задач
+            return RedirectToPage("/Index");
         }
     }
 }
