@@ -1,3 +1,5 @@
+using Task_Planner.Services;
+
 namespace Task_Planner
 {
     public class Program
@@ -8,6 +10,7 @@ namespace Task_Planner
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddSingleton<ITaskService, TaskService>();
 
             var app = builder.Build();
 
