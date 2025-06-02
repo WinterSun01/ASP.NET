@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Task_Planner.Models;
+﻿using Task_Planner.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Task_Planner.Services
 {
@@ -14,9 +15,28 @@ namespace Task_Planner.Services
             _tasks.Add(task);
         }
 
-        public List<UserTask> GetAllTasks()
+        public List<UserTask> GetAllTasks() => _tasks;
+
+        public UserTask? GetTaskById(int id)
         {
-            return _tasks;
+            return _tasks.FirstOrDefault(t => t.Id == id);
+        }
+
+        public void DeleteTask(int id)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == id);
+            if (task != null)
+                _tasks.Remove(task);
+        }
+
+        public void UpdateTask(UserTask updatedTask)
+        {
+            var existing = _tasks.FirstOrDefault(t => t.Id == updatedTask.Id);
+            if (existing != null)
+            {
+                existing.Title = updatedTask.Title;
+                existing.Description = updatedTask.Description;
+            }
         }
     }
 }

@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model Task_Planner.Pages.Tasks.EditModel
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<h2>Edit Task</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="Task.Title" class="form-label"></label>
+        <input asp-for="Task.Title" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Task.Description" class="form-label"></label>
+        <input asp-for="Task.Description" class="form-control" />
+    </div>
+    <input type="hidden" asp-for="Task.Id" />
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-page="/Tasks/List" class="btn btn-secondary">Cancel</a>
+</form>

@@ -7,5 +7,8 @@ namespace Task_Planner.Services
     {
         void CreateTask(UserTask task);
         List<UserTask> GetAllTasks();
+        UserTask? GetTaskById(int id);
+        void DeleteTask(int id);
+        void UpdateTask(UserTask task);
     }
 }

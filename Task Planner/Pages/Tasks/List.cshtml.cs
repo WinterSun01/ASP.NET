@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Task_Planner.Models;
 using Task_Planner.Services;
@@ -19,6 +20,12 @@ namespace Task_Planner.Pages.Tasks
         public void OnGet()
         {
             Tasks = _taskService.GetAllTasks();
+        }
+
+        public IActionResult OnPostDelete(int id)
+        {
+            _taskService.DeleteTask(id);
+            return RedirectToPage();
         }
     }
 }
