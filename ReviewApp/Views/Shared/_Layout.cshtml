@@ -6,28 +6,24 @@
     <style>
         body 
         {
-            font-family: sans-serif;
+            font-family: Arial, sans-serif;
             margin: 40px;
-        }
-
-        .form-group 
-        {
-            margin-bottom: 12px;
-        }
-
-        input, textarea 
-        {
-            width: 100%;
-            padding: 6px;
         }
     </style>
 </head>
 <body>
+    <header>
+        <h1>ReviewApp</h1>
+        <hr />
+    </header>
 
-    <h1>ReviewApp</h1>
-    <hr />
+    <main>
+        @RenderBody()
+    </main>
 
-    @RenderBody()
-
+    <footer>
+        <hr />
+        <p>&copy; @DateTime.Now.Year - ReviewApp</p>
+    </footer>
 </body>
 </html>
