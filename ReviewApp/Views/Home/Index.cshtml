@@ -1,0 +1,52 @@
+﻿@model List<ReviewApp.Models.Review>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>User Reviews</title>
+</head>
+<body>
+
+    <h1>User Reviews</h1>
+
+    <form method="post" asp-controller="Home" asp-action="AddReview">
+
+        <div>
+            <label for="Author">Author:</label>
+            <input id="Author" type="text" name="Author" required />
+        </div>
+        <div>
+            <label for="Message">Message:</label>
+            <textarea id="Message" name="Message" required></textarea>
+        </div>
+        <div>
+            <label for="Rating">Rating (1–5):</label>
+            <input id="Rating" type="number" name="Rating" min="1" max="5" required />
+        </div>
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <hr />
+
+    <h2>Latest Reviews</h2>
+    @if (Model.Count == 0)
+    {
+        <p>No reviews yet.</p>
+    }
+    else
+    {
+        <ul>
+            @foreach (var review in Model)
+            {
+                <li>
+                    <strong>@review.Author</strong> (Rating: @review.Rating)<br />
+                    <em>@review.CreatedAt.ToString("g")</em><br />
+                    @review.Message
+                </li>
+            }
+        </ul>
+    }
+
+</body>
+</html>
