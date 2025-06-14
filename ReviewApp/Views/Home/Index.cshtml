@@ -6,36 +6,48 @@
     <meta charset="utf-8" />
     <title>User Reviews</title>
     <style>
-        form 
+        .form-container 
         {
             max-width: 400px;
             margin-bottom: 20px;
         }
 
-        form div 
+        .form-group 
         {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        label 
+            .form-group label 
+            {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 4px;
+            }
+
+            .form-group input,
+            .form-group textarea 
+            {
+                width: 100%;
+                padding: 6px;
+                box-sizing: border-box;
+            }
+
+        .form-submit 
         {
-            display: block;
-            margin-bottom: 4px;
-            font-weight: bold;
+            margin-top: 10px;
         }
 
-        input[type="text"],
-        input[type="number"],
-        textarea 
+        ul 
         {
-            width: 100%;
-            padding: 6px;
-            box-sizing: border-box;
+            padding-left: 0;
+            list-style: none;
         }
 
-        button 
+        li 
         {
-            padding: 8px 16px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
         }
     </style>
 </head>
@@ -43,20 +55,22 @@
 
     <h1>User Reviews</h1>
 
-    <form method="post" asp-controller="Home" asp-action="AddReview">
-        <div>
-            <label for="Author">Author:</label>
-            <input id="Author" type="text" name="Author" required />
+    <form method="post" asp-controller="Home" asp-action="AddReview" class="form-container">
+        <div class="form-group">
+            @Html.Label("Author", "Author:")
+            @Html.TextBox("Author", null, new { required = "required" })
         </div>
-        <div>
-            <label for="Message">Message:</label>
-            <textarea id="Message" name="Message" rows="4" required></textarea>
+        <div class="form-group">
+            @Html.Label("Message", "Message:")
+            @Html.TextArea("Message", null, new { rows = "4", required = "required" })
         </div>
-        <div>
-            <label for="Rating">Rating (1–5):</label>
-            <input id="Rating" type="number" name="Rating" min="1" max="5" required />
+        <div class="form-group">
+            @Html.Label("Rating", "Rating (1–5):")
+            @Html.TextBox("Rating", null, new { type = "number", min = "1", max = "5", required = "required" })
         </div>
-        <button type="submit">Submit Review</button>
+        <div class="form-group form-submit">
+            <button type="submit">Submit Review</button>
+        </div>
     </form>
 
     <hr />
