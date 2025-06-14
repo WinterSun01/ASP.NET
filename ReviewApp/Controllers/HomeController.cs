@@ -4,6 +4,7 @@ using ReviewApp.Services;
 
 namespace ReviewApp.Controllers
 {
+    [Route("home")]
     public class HomeController : Controller
     {
         private readonly ReviewService _reviewService;
@@ -13,17 +14,17 @@ namespace ReviewApp.Controllers
             _reviewService = reviewService;
         }
 
+        [HttpGet("")]
+        [HttpGet("index")]
         public IActionResult Index()
         {
             var reviews = _reviewService.GetLastReviews(20);
             return View(reviews);
         }
 
-        [HttpPost]
+        [HttpPost("add")]
         public IActionResult AddReview(Review review)
         {
-            Console.WriteLine($"AddReview called: Author={review.Author}, Message={review.Message}, Rating={review.Rating}");
-
             if (string.IsNullOrWhiteSpace(review.Author) ||
                 string.IsNullOrWhiteSpace(review.Message) ||
                 review.Rating < 1 || review.Rating > 5)
@@ -34,9 +35,6 @@ namespace ReviewApp.Controllers
             _reviewService.AddReview(review);
             return RedirectToAction("Index");
         }
-
-
-
-
     }
+
 }
