@@ -5,20 +5,52 @@
 <head>
     <meta charset="utf-8" />
     <title>User Reviews</title>
+    <style>
+        form 
+        {
+            max-width: 400px;
+            margin-bottom: 20px;
+        }
+
+        form div 
+        {
+            margin-bottom: 10px;
+        }
+
+        label 
+        {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea 
+        {
+            width: 100%;
+            padding: 6px;
+            box-sizing: border-box;
+        }
+
+        button 
+        {
+            padding: 8px 16px;
+        }
+    </style>
 </head>
 <body>
 
     <h1>User Reviews</h1>
 
     <form method="post" asp-controller="Home" asp-action="AddReview">
-
         <div>
             <label for="Author">Author:</label>
             <input id="Author" type="text" name="Author" required />
         </div>
         <div>
             <label for="Message">Message:</label>
-            <textarea id="Message" name="Message" required></textarea>
+            <textarea id="Message" name="Message" rows="4" required></textarea>
         </div>
         <div>
             <label for="Rating">Rating (1–5):</label>
