@@ -1,0 +1,45 @@
+﻿@model OnlineStore.Models.View.ProductReviewViewModel
+
+@section Header 
+{
+    <h1>@Model.Product.Name</h1>
+}
+
+<p>Id: @Model.Product.Id</p>
+
+<h3>Отзывы</h3>
+
+@if (Model.Reviews != null && Model.Reviews.Count > 0)
+{
+    <ul class="list-group mb-3">
+        @foreach (var review in Model.Reviews)
+        {
+            <li class="list-group-item">
+                <strong>@review.Author:</strong> @review.Content
+            </li>
+        }
+    </ul>
+}
+
+else
+{
+    <p>Отзывов пока нет.</p>
+}
+
+<h4>Оставить отзыв</h4>
+
+<form asp-action="AddReview" asp-controller="Product" method="post">
+    <input type="hidden" asp-for="NewReview.ProductId" />
+
+    <div class="mb-2">
+        <label asp-for="NewReview.Author" class="form-label">Ваше имя</label>
+        <input asp-for="NewReview.Author" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label asp-for="NewReview.Content" class="form-label">Отзыв</label>
+        <textarea asp-for="NewReview.Content" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Отправить</button>
+</form>
