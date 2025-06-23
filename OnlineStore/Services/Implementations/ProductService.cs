@@ -8,18 +8,50 @@ namespace OnlineStore.Services.Implementations
         private readonly IProductRepository _productRepository;
         private readonly IReviewRepository _reviewRepository;
 
-        public ProductService(IProductRepository productRepo, IReviewRepository reviewRepo)
+        public ProductService(IProductRepository productRepository, IReviewRepository reviewRepository)
         {
-            _productRepository = productRepo;
-            _reviewRepository = reviewRepo;
+            _productRepository = productRepository;
+            _reviewRepository = reviewRepository;
         }
 
-        public List<Product> GetProducts() => _productRepository.GetAll();
+        public List<Product> GetProducts()
+        {
+            return _productRepository.GetAll();
+        }
 
-        public Product? GetProductById(int id) => _productRepository.GetById(id);
+        public Product? GetProductById(int id)
+        {
+            return _productRepository.GetById(id);
+        }
 
-        public void AddReview(Review review) => _reviewRepository.Add(review);
+        public void AddReview(Review review)
+        {
+            _reviewRepository.Add(review);
+        }
 
-        public List<Review> GetReviewsByProductId(int productId) => _reviewRepository.GetByProductId(productId);
+        public List<Review> GetReviewsByProductId(int productId)
+        {
+            return _reviewRepository.GetByProductId(productId);
+        }
+
+        public List<Product> GetProductsPaged(int page, int pageSize)
+        {
+            return _productRepository.GetProductsPaged(page, pageSize);
+        }
+
+        public int GetTotalProductCount()
+        {
+            return _productRepository.GetTotalProductCount();
+        }
+
+        public List<Review> GetReviewsPaged(int productId, int page, int pageSize)
+        {
+            return _reviewRepository.GetReviewsPaged(productId, page, pageSize);
+        }
+
+        public int GetTotalReviewCount(int productId)
+        {
+            return _reviewRepository.GetTotalReviewCount(productId);
+        }
     }
 }

@@ -6,11 +6,24 @@ namespace OnlineStore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index([FromServices] IProductService productService)
+        private readonly IProductService _productService;
+        private const int PageSize = 5;
+
+        public HomeController(IProductService productService)
         {
-            HomePageViewModel model = new HomePageViewModel()
+            _productService = productService;
+        }
+
+        public IActionResult Index(int page = 1)
+        {
+            var products = _productService.GetProductsPaged(page, PageSize);
+            var totalCount = _productService.GetTotalProductCount();
+
+            var model = new HomePageViewModel
             {
-                Products = productService.GetProducts()
+                Products = products,
+                CurrentPage = page,
+                TotalPages = (int)Math.Ceiling(totalCount / (double)PageSize)
             };
 
             return View(model);

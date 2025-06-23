@@ -6,5 +6,7 @@ namespace OnlineStore.Data
     {
         List<Product> GetAll();
         Product? GetById(int id);
+        List<Product> GetProductsPaged(int page, int pageSize);
+        int GetTotalProductCount();
     }
 }

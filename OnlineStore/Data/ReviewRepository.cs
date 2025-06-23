@@ -46,5 +46,53 @@ namespace OnlineStore.Data
             connection.Open();
             command.ExecuteNonQuery();
         }
+
+        public List<Review> GetReviewsPaged(int productId, int page, int pageSize)
+        {
+            var reviews = new List<Review>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = @"SELECT Id, ProductId, Author, Content
+                                 FROM Reviews
+                                 WHERE ProductId = @ProductId
+                                 ORDER BY Id
+                                 OFFSET @Offset ROWS FETCH NEXT @PageSize ROWS ONLY";
+
+                var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ProductId", productId);
+                command.Parameters.AddWithValue("@Offset", (page - 1) * pageSize);
+                command.Parameters.AddWithValue("@PageSize", pageSize);
+
+                connection.Open();
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        reviews.Add(new Review
+                        {
+                            Id = reader.GetInt32(0),
+                            ProductId = reader.GetInt32(1),
+                            Author = reader.GetString(2),
+                            Content = reader.GetString(3)
+                        });
+                    }
+                }
+            }
+
+            return reviews;
+        }
+
+        public int GetTotalReviewCount(int productId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Reviews WHERE ProductId = @ProductId";
+                var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ProductId", productId);
+
+                connection.Open();
+                return (int)command.ExecuteScalar();
+            }
+        }
     }
 }

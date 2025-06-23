@@ -1,6 +1,6 @@
 ﻿@model OnlineStore.Models.View.ProductReviewViewModel
 
-@section Header 
+@section Header
 {
     <h1>@Model.Product.Name</h1>
 }
@@ -19,8 +19,24 @@
             </li>
         }
     </ul>
-}
 
+    <nav class="mt-3">
+        <ul class="pagination">
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                    <a class="page-link"
+                       asp-controller="Product"
+                       asp-action="Index"
+                       asp-route-id="@Model.Product.Id"
+                       asp-route-page="@i">
+                        @i
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
 else
 {
     <p>Отзывов пока нет.</p>
