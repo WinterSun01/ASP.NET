@@ -1,6 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using OnlineStore.Data;
 using OnlineStore.Services;
 using OnlineStore.Services.Implementations;
-using OnlineStore.Data;
 
 namespace OnlineStore
 {
@@ -12,16 +13,20 @@ namespace OnlineStore
 
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-
             builder.Services.AddScoped<IProductService, ProductService>();
 
             var app = builder.Build();
 
             app.UseStaticFiles();
 
-            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }
