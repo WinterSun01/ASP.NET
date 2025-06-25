@@ -15,9 +15,16 @@ CREATE TABLE Products
 GO
 
 INSERT INTO Products (Name) VALUES 
-(N'Product 1'), 
-(N'Product 2'), 
-(N'Product 3');
+(N'Ноутбук Lenovo IdeaPad 3'),
+(N'Смартфон Samsung Galaxy A52'),
+(N'Наушники Sony WH-1000XM4'),
+(N'Монитор LG UltraFine 4K'),
+(N'Клавиатура Logitech MX Keys'),
+(N'Мышь Logitech MX Master 3S'),
+(N'Планшет Apple iPad Air'),
+(N'Умные часы Xiaomi Mi Band 7'),
+(N'Принтер HP LaserJet Pro'),
+(N'Веб-камера Logitech C920');
 GO
 
 CREATE TABLE Reviews
@@ -31,7 +38,9 @@ CREATE TABLE Reviews
 GO
 
 INSERT INTO Reviews (ProductId, Author, Content) VALUES
-(1, N'Анастасия', N'Отличный продукт!'),
-(2, N'Мария', N'Продукт понравился, рекомендую.'),
-(3, N'Михаил', N'Могло быть и лучше.');
+(1, N'Анастасия', N'Отличный ноутбук, работает быстро и тихо.'),
+(2, N'Мария', N'Приятный экран и хорошая камера.'),
+(3, N'Михаил', N'Звук на высоте, шумоподавление отличное.'),
+(4, N'Иван', N'Монитор чёткий, но цена кусается.'),
+(5, N'Екатерина', N'Удобная клавиатура, печатать приятно.');
 GO
