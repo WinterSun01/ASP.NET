@@ -1,13 +1,12 @@
 ﻿@model TaskPlanner.Models.TaskItem
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Детали";
 }
 
-<h1>Details</h1>
+<h1>Детали</h1>
 
 <div>
-    <h4>TaskItem</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -36,7 +35,10 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="form-group">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Изменить</a>
 </div>
+<div class="mt-2">
+    <a asp-action="Index">Назад к списку</a>
+</div>
+

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace TaskPlanner.Models
 {
@@ -6,16 +7,20 @@ namespace TaskPlanner.Models
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Введите заголовок")]
         [StringLength(100)]
+        [Display(Name = "Заголовок")]
         public string Title { get; set; }
 
         [StringLength(500)]
+        [Display(Name = "Описание")]
         public string? Description { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "Срок выполнения")]
         public DateTime? DueDate { get; set; }
 
+        [Display(Name = "Выполнено")]
         public bool IsCompleted { get; set; }
     }
 }
