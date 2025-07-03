@@ -1,4 +1,4 @@
-namespace TaskApiProject
+namespace TaskApi
 {
     public class WeatherForecast
     {
