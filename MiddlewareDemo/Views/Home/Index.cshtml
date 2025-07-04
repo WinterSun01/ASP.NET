@@ -1,0 +1,23 @@
+﻿@model MiddlewareDemo.Models.ResultViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Request Time</title>
+    <style>
+        body { font-family: Arial; padding: 2rem; }
+        .slow { color: red; font-weight: bold; }
+        .fast { color: green; }
+    </style>
+</head>
+<body>
+    <h1>✅ Запрос выполнен</h1>
+    <p>⏱ Время выполнения: <span class="@(Model.IsSlow ? "slow" : "fast")">@Model.ElapsedMilliseconds</span> мс</p>
+
+    @if (Model.IsSlow)
+    {
+        <p class="slow">⚠️ Предупреждение: запрос выполнялся слишком долго!</p>
+    }
+</body>
+</html>
