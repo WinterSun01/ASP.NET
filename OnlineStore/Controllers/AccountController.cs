@@ -2,6 +2,10 @@
 using OnlineStore.Models.Domain;
 using OnlineStore.Models.View;
 using OnlineStore.Services;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
 
 namespace OnlineStore.Controllers
 {
@@ -21,23 +25,21 @@ namespace OnlineStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(UserAuthViewModel model)
+        public IActionResult Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = new User
             {
-                var user = new User
-                {
-                    Email = model.Email,
-                    Name = model.Name,
-                    Password = model.Password,
-                    CreatedAt = DateTime.UtcNow
-                };
+                Email = model.Email,
+                Name = model.Name,
+                Password = model.Password,
+                CreatedAt = DateTime.UtcNow
+            };
 
-                _userService.Register(user);
-                return RedirectToAction("Login");
-            }
-
-            return View(model);
+            _userService.Register(user);
+            return RedirectToAction("Login");
         }
 
         [HttpGet]
@@ -47,21 +49,37 @@ namespace OnlineStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserAuthViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = _userService.GetByEmailAndPassword(model.Email, model.Password);
-                if (user != null)
-                {
-                    TempData["WelcomeMessage"] = $"Добро пожаловать, {user.Name}!";
-                    return RedirectToAction("Index", "Home");
-                }
+            if (!ModelState.IsValid)
+                return View(model);
 
-                ModelState.AddModelError("", "Неверный email или пароль.");
+            var user = _userService.GetByEmailAndPassword(model.Email, model.Password);
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Неверный email или пароль");
+                return View(model);
             }
 
-            return View(model);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("UserId", user.Id.ToString())
+            };
+
+            var claimsIdentity = new ClaimsIdentity(claims, "MyCookieAuth");
+
+            await HttpContext.SignInAsync("MyCookieAuth", new ClaimsPrincipal(claimsIdentity));
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("MyCookieAuth");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

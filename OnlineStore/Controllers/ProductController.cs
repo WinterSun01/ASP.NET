@@ -43,6 +43,12 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public IActionResult AddReview([FromForm] ProductReviewViewModel model)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                TempData["ErrorMessage"] = "Для добавления отзыва необходимо войти в систему.";
+                return RedirectToAction("Index", new { id = model.NewReview.ProductId });
+            }
+
             Review review = model.NewReview;
 
             if (!string.IsNullOrWhiteSpace(review.Author) && !string.IsNullOrWhiteSpace(review.Content))
@@ -52,5 +58,6 @@ namespace OnlineStore.Controllers
 
             return RedirectToAction("Index", new { id = review.ProductId });
         }
+
     }
 }

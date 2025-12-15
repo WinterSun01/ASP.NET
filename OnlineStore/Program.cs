@@ -13,6 +13,13 @@ namespace OnlineStore
 
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthentication("MyCookieAuth")
+                .AddCookie("MyCookieAuth", options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.Cookie.Name = "OnlineStoreAuthCookie";
+                });
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -21,16 +28,19 @@ namespace OnlineStore
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IUserService, UserService>();
 
-
             var app = builder.Build();
 
             app.UseStaticFiles();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
         }
     }
 }

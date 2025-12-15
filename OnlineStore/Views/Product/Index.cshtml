@@ -7,6 +7,13 @@
 
 <p>Id: @Model.Product.Id</p>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <h3>Отзывы</h3>
 
 @if (Model.Reviews != null && Model.Reviews.Count > 0)
@@ -44,18 +51,27 @@ else
 
 <h4>Оставить отзыв</h4>
 
-<form asp-action="AddReview" asp-controller="Product" method="post">
-    <input type="hidden" asp-for="NewReview.ProductId" />
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <form asp-action="AddReview" asp-controller="Product" method="post">
+        <input type="hidden" asp-for="NewReview.ProductId" />
 
-    <div class="mb-2">
-        <label asp-for="NewReview.Author" class="form-label">Ваше имя</label>
-        <input asp-for="NewReview.Author" class="form-control" />
+        <div class="mb-2">
+            <label asp-for="NewReview.Author" class="form-label">Ваше имя</label>
+            <input asp-for="NewReview.Author" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label asp-for="NewReview.Content" class="form-label">Отзыв</label>
+            <textarea asp-for="NewReview.Content" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-warning">
+        Чтобы оставить отзыв, нужно <a asp-controller="Account" asp-action="Login">войти в учётную запись</a>.
     </div>
-
-    <div class="mb-2">
-        <label asp-for="NewReview.Content" class="form-label">Отзыв</label>
-        <textarea asp-for="NewReview.Content" class="form-control"></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Отправить</button>
-</form>
+}
